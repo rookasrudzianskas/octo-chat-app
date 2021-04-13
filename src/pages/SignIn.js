@@ -6,16 +6,17 @@ import { auth } from '../misc/firebase';
 
 const SignIn = () => {
 
-    const signInWithProvider = (provider) => {
-        auth.signInWithPopup(provider)
+    const signInWithProvider = async (provider) => {
+        const result = await auth.signInWithPopup(provider);
+        console.log(result)
     }
 
 
     const onFacebookSignIn = () => {
-        signInWithProvider();
+        signInWithProvider( new firebase.auth.FacebookAuthProvider() );
     };
     const onGoogleSignIn = () => {
-        signInWithProvider();
+        signInWithProvider( new firebase.auth.GoogleAuthProvider() );
     };
 
     return (
@@ -30,10 +31,10 @@ const SignIn = () => {
                             </div>
 
                             <div className="mt-3">
-                                <Button block color="blue">
+                                <Button block color="blue" onClick={onFacebookSignIn}>
                                     <Icon icon="facebook" /> Continue with Facebook
                                 </Button>
-                                <Button block color="green">
+                                <Button block color="green" onClick={onGoogleSignIn}>
                                     <Icon icon="google" /> Continue with Google
                                 </Button>
                             </div>
